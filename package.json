@@ -1,0 +1,12 @@
+{
+  "name": "drone-browser",
+  "description": "Remote control for your ar-drone via your browser",
+  "version": "0.1.0",
+  "dependencies": {
+    "express": "~3.0.0",
+    "ar-drone": "git://github.com/felixge/node-ar-drone.git#ccc1e53dea91a9309be034d706235d7e8763065a",
+    "faye": "0.8.x"
+  },
+  "repository": "https://github.com/functino/drone-browser.git",
+  "homepage": "https://github.com/functino/drone-browser"
+}
