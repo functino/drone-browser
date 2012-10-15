@@ -76,12 +76,21 @@ $(document).on "gamepad:RIGHT_ANALOGUE_VERT", (ev, data) ->
   direction = "down" if data.value < 0
   faye.publish "/drone/move", action: direction, speed: normalizeSpeed(data.value)
 $(document).on "gamepad:RIGHT_ANALOGUE_HOR", (ev, data) ->
-  if (Math.abs(data.value) > 0.5)
   direction = "clockwise"
   direction = "counterClockwise" if data.value < 0
   faye.publish "/drone/move", action: direction, speed: normalizeSpeed(data.value)  
 
+$(document).on "gamepad:LEFT_SHOULDER", (ev, data) ->
+  faye.publish "/drone/move", action: "clockwise", speed: data.value
 
+$(document).on "gamepad:RIGHT_SHOULDER", (ev, data) ->
+  faye.publish "/drone/move", action: "counterClockwise", speed: data.value
+
+$(document).on "gamepad:LEFT_SHOULDER_BOTTOM", (ev, data) ->
+  faye.publish "/drone/move", action: "down", speed: data.value
+
+$(document).on "gamepad:RIGHT_SHOULDER_BOTTOM", (ev, data) ->
+  faye.publish "/drone/move", action: "up", speed: data.value  
 
 
 gamepadSupportAvailable = !!navigator.webkitGetGamepads || !!navigator.webkitGamepads
@@ -129,8 +138,8 @@ if gamepadSupportAvailable
         if 0.1 < Math.abs(axesStatus[index] - pad.axes[index])
           axesStatus[index] = pad.axes[index]
           padButtonEvent(name, pad.axes[index])          
-    setInterval(checkButtons, 50)
-    console.log("hi")
+      requestAnimationFrame(checkButtons)          
+    requestAnimationFrame(checkButtons)
   checkForGamePad = ->
     pad = navigator.webkitGetGamepads()[0]
     if pad?

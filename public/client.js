@@ -136,7 +136,7 @@
     if (Math.abs(val) < 0.15) {
       return 0;
     }
-    return Math.abs(val / 2);
+    return Math.abs(val / 4);
   };
   $(document).on("gamepad:LEFT_ANALOGUE_VERT", function(ev, data) {
     var direction;
@@ -182,6 +182,30 @@
       speed: normalizeSpeed(data.value)
     });
   });
+  $(document).on("gamepad:LEFT_SHOULDER", function(ev, data) {
+    return faye.publish("/drone/move", {
+      action: "clockwise",
+      speed: data.value
+    });
+  });
+  $(document).on("gamepad:RIGHT_SHOULDER", function(ev, data) {
+    return faye.publish("/drone/move", {
+      action: "counterClockwise",
+      speed: data.value
+    });
+  });
+  $(document).on("gamepad:LEFT_SHOULDER_BOTTOM", function(ev, data) {
+    return faye.publish("/drone/move", {
+      action: "down",
+      speed: data.value
+    });
+  });
+  $(document).on("gamepad:RIGHT_SHOULDER_BOTTOM", function(ev, data) {
+    return faye.publish("/drone/move", {
+      action: "up",
+      speed: data.value
+    });
+  });
   gamepadSupportAvailable = !!navigator.webkitGetGamepads || !!navigator.webkitGamepads;
   if (gamepadSupportAvailable) {
     gamepad = {};
@@ -223,7 +247,7 @@
         ]);
       };
       checkButtons = function() {
-        var index, name, _ref, _ref2, _results;
+        var index, name, _ref, _ref2;
         pad = navigator.webkitGetGamepads()[0];
         _ref = gamepad.BUTTONS;
         for (name in _ref) {
@@ -234,15 +258,16 @@
           }
         }
         _ref2 = gamepad.AXES;
-        _results = [];
         for (name in _ref2) {
           index = _ref2[name];
-          _results.push(0.1 < Math.abs(axesStatus[index] - pad.axes[index]) ? (axesStatus[index] = pad.axes[index], padButtonEvent(name, pad.axes[index])) : void 0);
+          if (0.1 < Math.abs(axesStatus[index] - pad.axes[index])) {
+            axesStatus[index] = pad.axes[index];
+            padButtonEvent(name, pad.axes[index]);
+          }
         }
-        return _results;
+        return requestAnimationFrame(checkButtons);
       };
-      setInterval(checkButtons, 1000);
-      return console.log("hi");
+      return requestAnimationFrame(checkButtons);
     };
     checkForGamePad = function() {
       var pad;
