@@ -34,12 +34,12 @@ drone.on 'navdata', (data) ->
   socket.publish "/drone/navdata", data
 
 imageSendingPaused = false
-drone.createPngStream().on "data", (frame) ->
-  currentImg = frame
-  return if imageSendingPaused
-  socket.publish("/drone/image", "/image/#{Math.random()}")
-  imageSendingPaused = true;
-  setTimeout( ( -> imageSendingPaused = false ), 100)
+# drone.createPngStream().on "data", (frame) ->
+#   currentImg = frame
+#   return if imageSendingPaused
+#   socket.publish("/drone/image", "/image/#{Math.random()}")
+#   imageSendingPaused = true;
+#   setTimeout( ( -> imageSendingPaused = false ), 100)
 
 app.get "/image/:id", (req, res) ->
   res.writeHead(200, "Content-Type": "image/png")
