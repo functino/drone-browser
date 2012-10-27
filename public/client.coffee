@@ -61,103 +61,37 @@ normalizeSpeed = (val) ->
   return 0 if Math.abs(val) < 0.15
   Math.abs(val / 4) # for safety reasons ;-)
 
-$(document).on "gamepad:LEFT_ANALOGUE_VERT", (ev, data) ->
+gamepad.on "LEFT_STICK_VERT", (data) ->
   direction = "back"
   direction = "forward" if data.value < 0
   faye.publish "/drone/move", action: direction, speed: normalizeSpeed(data.value)
-$(document).on "gamepad:LEFT_ANALOGUE_HOR", (ev, data) ->
+gamepad.on "LEFT_STICK_HOR", (data) ->
   direction = "right"
   direction = "left" if data.value < 0
   faye.publish "/drone/move", action: direction, speed: normalizeSpeed(data.value)
 
+gamepad.on("ready", -> console.log("ready"))
+gamepad.init(-> console.log("ready init?")) if gamepad.isSupported()
 
-$(document).on "gamepad:RIGHT_ANALOGUE_VERT", (ev, data) ->
+
+gamepad.on "RIGHT_STICK_VERT", (data) ->
   direction = "up"
   direction = "down" if data.value < 0
   faye.publish "/drone/move", action: direction, speed: normalizeSpeed(data.value)
-$(document).on "gamepad:RIGHT_ANALOGUE_HOR", (ev, data) ->
+gamepad.on "RIGHT_STICK_HOR", (data) ->
   direction = "clockwise"
   direction = "counterClockwise" if data.value < 0
   faye.publish "/drone/move", action: direction, speed: normalizeSpeed(data.value)  
 
-$(document).on "gamepad:LEFT_SHOULDER", (ev, data) ->
+gamepad.on "LEFT_SHOULDER", (data) ->
   faye.publish "/drone/move", action: "clockwise", speed: data.value
 
-$(document).on "gamepad:RIGHT_SHOULDER", (ev, data) ->
+gamepad.on "RIGHT_SHOULDER", (data) ->
   faye.publish "/drone/move", action: "counterClockwise", speed: data.value
 
-$(document).on "gamepad:LEFT_SHOULDER_BOTTOM", (ev, data) ->
+gamepad.on "LEFT_SHOULDER_BOTTOM", (data) ->
   faye.publish "/drone/move", action: "down", speed: data.value
 
-$(document).on "gamepad:RIGHT_SHOULDER_BOTTOM", (ev, data) ->
-  faye.publish "/drone/move", action: "up", speed: data.value  
-
-
-gamepadSupportAvailable = !!navigator.webkitGetGamepads || !!navigator.webkitGamepads
-if gamepadSupportAvailable
-  gamepad = {}
-  gamepad.BUTTONS = {
-    FACE_1: 0, # Face (main) buttons
-    FACE_2: 1,
-    FACE_3: 2,
-    FACE_4: 3,
-    LEFT_SHOULDER: 4, # Top shoulder buttons
-    RIGHT_SHOULDER: 5,
-    LEFT_SHOULDER_BOTTOM: 6, # Bottom shoulder buttons
-    RIGHT_SHOULDER_BOTTOM: 7,
-    SELECT: 8,
-    START: 9,
-    LEFT_ANALOGUE_STICK: 10, # Analogue sticks (if depressible)
-    RIGHT_ANALOGUE_STICK: 11,
-    PAD_TOP: 12, # Directional (discrete) pad
-    PAD_BOTTOM: 13,
-    PAD_LEFT: 14,
-    PAD_RIGHT: 15
-  };
-
-  gamepad.AXES = {
-    LEFT_ANALOGUE_HOR: 0,
-    LEFT_ANALOGUE_VERT: 1,
-    RIGHT_ANALOGUE_HOR: 2,
-    RIGHT_ANALOGUE_VERT: 3
-  };  
-  checkForGamePad = null
-  padStatus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0]
-  axesStatus = [0, 0, 0, 0]
-  setupGamepad = (pad) ->
-    console.log("setting up gamepad")
-    padButtonEvent = (name, value) -> 
-      $(document).trigger("gamepad:#{name}", [value: value])
-    checkButtons = ->
-      pad = navigator.webkitGetGamepads()[0]
-      for name, index of gamepad.BUTTONS
-        if padStatus[index] != pad.buttons[index]
-          padStatus[index] = pad.buttons[index]
-          padButtonEvent(name, pad.buttons[index])
-      for name, index of gamepad.AXES
-        if 0.1 < Math.abs(axesStatus[index] - pad.axes[index])
-          axesStatus[index] = pad.axes[index]
-          padButtonEvent(name, pad.axes[index])          
-      requestAnimationFrame(checkButtons)          
-    requestAnimationFrame(checkButtons)
-  checkForGamePad = ->
-    pad = navigator.webkitGetGamepads()[0]
-    if pad?
-      console.log("found")
-      setupGamepad(pad)
-    else
-      setTimeout(@, 1000);
-  checkForGamePad()
-  
-  
-
-
-
-
-
-
-
-
-
-
+gamepad.on "RIGHT_SHOULDER_BOTTOM", (data) ->
+  faye.publish "/drone/move", action: "up", speed: data.value
 
