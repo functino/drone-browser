@@ -12,14 +12,22 @@ This project is heavily inspired from https://github.com/usefulthink/nodecopter-
 
 Dependencies
 =======
-You can install/update the node dependencies via `npm install -d`.
-Dependencies for client code are managed via bower ( https://github.com/twitter/bower ). 
+You can install/update the node dependencies 
+```
+npm install
+```
+
+Dependencies for client code are managed via bower 
+```
+bower install
+```
+
 You need to have `ffmpeg` installed (it's used for the picture stuff)
 
 Screenshot
 ========
 This is how it looks like in action:
-![drone browser in chrome](https://raw.github.com/functino/drone-browser/master/screenshot.png)
+![drone browser in chrome](https://raw.github.com/chilijung/drone-browser/master/image/screenshot.png)
 
 TODO
 ======
