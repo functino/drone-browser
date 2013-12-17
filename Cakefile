@@ -1,3 +1,7 @@
+FFI  = require "node-ffi"
+libc = new FFI.Library(null, "system": ["int32", ["string"]])
+run = libc.system
+
 {spawn, exec} = require 'child_process'
 
 compileCoffee = ( src, dst, watch ) ->
@@ -9,5 +13,11 @@ task 'build', 'compile *.coffee files to *.js', () ->
     console.log( "Compiling coffee" );
     compileCoffee('.', '.', false);
 
-task 'watch', 'watch and compile *.coffee files', (options) ->
+task 'watch', 'watch and compile *.coffee files', ->
     compileCoffee('.', '.', true)    
+
+task 'serve', 'server start', ->
+    console.log('serving the server!!!')
+	  run """
+	  coffee app.coffee
+	  """
