@@ -24,11 +24,6 @@ bower install
 
 You need to have `ffmpeg` installed (it's used for the picture stuff)
 
-Screenshot
-========
-This is how it looks like in action:
-![drone browser in chrome](https://raw.github.com/chilijung/drone-browser/master/image/screenshot.png)
-
 TODO
 ======
 - use getUserMedia/the webcam to control the drone (like magic xylophone...)
