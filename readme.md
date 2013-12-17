@@ -1,13 +1,11 @@
 # Drone browser
 
 
-Prequest
-======
+##Prequest
 - nodejs
 - npm 
 
-Setup
-=======
+## Setup
 You can install/update the node dependencies 
 ```
 npm install
@@ -29,8 +27,7 @@ coffee app.coffee # after start the server open up http://localhost:3001
 ```
 
 
-Getting started
-======
+## Getting started
 Connect to your ar drone 2 via WLAN, then run node.server.js open up localhost:3001 and you're ready to go.
 
 Use `W, A, S, D` to move front, back and sideways. Use your `cursors` to go up/down or turn clockwise/counter clockwise.
@@ -78,8 +75,7 @@ and you will see magic happened :)
 
 
 
-TODO
-======
+## TODO
 - use getUserMedia/the webcam to control the drone (like magic xylophone...)
 - add a slider to make the speed/duration of actions configurable
 - toggle between takeoff/land buttons or disable takeoff button after takeoff...
