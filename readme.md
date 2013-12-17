@@ -10,6 +10,11 @@ When you crash use `e` to recover from emergency mode.
 
 This project is heavily inspired from https://github.com/usefulthink/nodecopter-monitor . I just removed the three.js part and ported it from socket.io to faye since I like that better.
 
+Prequest
+======
+- nodejs
+- npm 
+
 Dependencies
 =======
 You can install/update the node dependencies 
@@ -19,6 +24,7 @@ npm install
 
 Dependencies for client code are managed via bower 
 ```
+npm install -g bower # install bower global mode
 bower install
 ```
 
