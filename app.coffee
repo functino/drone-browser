@@ -3,6 +3,7 @@ faye = require "faye"
 path = require "path"
 drone = require("ar-drone").createClient()
 drone.config('general:navdata_demo', 'TRUE');
+
 app = express()
 app.configure ->
   app.set('port', process.env.PORT || 3001)
@@ -44,3 +45,8 @@ drone.createPngStream().on "data", (frame) ->
 app.get "/image/:id", (req, res) ->
   res.writeHead(200, "Content-Type": "image/png")
   res.end(currentImg, "binary")
+
+app.get "/terminal/:action/:speed" , (req, res) ->
+  drone[req.param('action')]?()
+  console.log("action:" + req.param('action') + ", speed " + req.param('speed'))
+  res.end()
