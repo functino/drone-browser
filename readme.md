@@ -24,6 +24,14 @@ bower install
 
 You need to have `ffmpeg` installed (it's used for the picture stuff)
 
+To start server you have to install `coffeescript` for execute `Cakefile`
+
+```
+npm install -g coffescript
+cake serve
+```
+
+
 TODO
 ======
 - use getUserMedia/the webcam to control the drone (like magic xylophone...)
