@@ -47,6 +47,15 @@ app.get "/image/:id", (req, res) ->
   res.end(currentImg, "binary")
 
 app.get "/terminal/:action/:speed" , (req, res) ->
-  drone[req.param('action')]?()
-  console.log("action:" + req.param('action') + ", speed " + req.param('speed'))
-  res.end()
+
+  action = req.param('action')
+  speed = req.param('speed')
+  action_list = ['takeoff', 'front', 'back', 'up', 'down', 'left', 'right', 'clockwise', 'counterClockwise', 'land']
+
+  if(action in action_list && speed < 1 && speed > 0)
+    drone[action]?(speed)
+    console.log("action:" + action + ", speed " + speed)
+    res.end()
+  else
+    console.log("Check if your command is right or not, and the speed should be between 1 and 0.")
+    res.end()
