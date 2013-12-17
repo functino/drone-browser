@@ -28,7 +28,7 @@ To start server you have to install `coffeescript` for execute `Cakefile`
 
 ```
 npm install -g coffescript
-cake serve
+cake serve # after start the server open up http://localhost:3001
 ```
 
 
