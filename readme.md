@@ -51,9 +51,19 @@ Now it is also available to control it by using curl. The reason using curl is t
 /terminal/:action/:speed # :action means pass into action param, :speed means pass into speed param
 ```
 
-- action option now support 'takeoff', 'front', 'back', 'up', 'down', 'left', 'right', 'clockwise', 'counterClockwise', 'land'
+- `action option` now support 
+    - takeoff
+    - front 
+    - back 
+    - up 
+    - down 
+    - left 
+    - right 
+    - clockwise 
+    - counterClockwise
+    - land
 
-- speed option must be between 1 and 0
+- `speed option` must be between 1 and 0
 
 after you start the server(it should connect to `http://localhost:3001/` in default)
 
