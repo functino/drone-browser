@@ -1,6 +1,7 @@
 express = require "express"
 faye = require "faye"
 path = require "path"
+fs = require "fs"
 drone = require("ar-drone").createClient()
 drone.config('general:navdata_demo', 'TRUE');
 
@@ -36,9 +37,16 @@ drone.on 'navdata', (data) ->
 
 imageSendingPaused = false
 drone.createPngStream().on "data", (frame) ->
+  imageName = Number(new Date())
   currentImg = frame
   return if imageSendingPaused
-  socket.publish("/drone/image", "/image/#{Math.random()}")
+  socket.publish("/drone/image", "/image/" + imageName)
+  fs.writeFile('./tmp/' + imageName + '.png', currentImg, (err) ->
+      if(err)
+        console.log(err)
+      else
+        console.log('Saveing image to ./tmp/' + imageName + '.png')
+    )
   imageSendingPaused = true;
   setTimeout( ( -> imageSendingPaused = false ), 100)
 

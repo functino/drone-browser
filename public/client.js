@@ -27,9 +27,10 @@
   };
 
   faye.subscribe("/drone/image", function(src) {
-    return $("#cam").attr({
+    $("#cam").attr({
       src: src
     });
+    return console.log(src);
   });
 
   keymap = {
