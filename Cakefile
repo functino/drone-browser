@@ -11,10 +11,10 @@ compileCoffee = ( src, dst, watch ) ->
 
 task 'build', 'compile *.coffee files to *.js', () ->
     console.log( "Compiling coffee" );
-    compileCoffee('.', '.', false);
+    compileCoffee('./public/', './public/', false);
 
 task 'watch', 'watch and compile *.coffee files', ->
-    compileCoffee('.', '.', true)    
+    compileCoffee('./public/', './public/', true)    
 
 task 'serve', 'server start', ->
     console.log('serving the server!!!')

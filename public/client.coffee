@@ -17,7 +17,6 @@ window.showBatteryStatus = (batteryPercentage) ->
 
 faye.subscribe "/drone/image", (src) -> 
   $("#cam").attr(src: src)
-  console.log(src)
 
 keymap =
   87 : { ev: 'move', action: 'front' }, # W

@@ -41,14 +41,26 @@ drone.createPngStream().on "data", (frame) ->
   currentImg = frame
   return if imageSendingPaused
   socket.publish("/drone/image", "/image/" + imageName)
-  fs.writeFile('./tmp/' + imageName + '.png', currentImg, (err) ->
-      if(err)
-        console.log(err)
-      else
-        console.log('Saveing image to ./tmp/' + imageName + '.png')
-    )
-  imageSendingPaused = true;
-  setTimeout( ( -> imageSendingPaused = false ), 100)
+  fs.exists('./tmp', (exist) ->
+
+    savingImg = () ->
+      fs.writeFile('./tmp/' + imageName + '.png', currentImg, (err) ->
+          if(err)
+            console.log(err)
+          else
+            console.log('Saveing image to ./tmp/' + imageName + '.png')
+        )
+      imageSendingPaused = true;
+      setTimeout( ( -> imageSendingPaused = false ), 100)
+
+    if(exist)
+      savingImg()
+    else
+      fs.mkdir('./tmp', ->
+          console.log('create ./tmp')
+          savingImg()
+        )
+  )
 
 app.get "/image/:id", (req, res) ->
   res.writeHead(200, "Content-Type": "image/png")
