@@ -74,7 +74,7 @@ and you will see magic happened :)
 
 ##### Saving images
 
-After you start the server, it will start saving images to `./tmp` file, if you don't have the file the server will create one automatically.
+After you start the server, it will start saving images to `./tmp` file, if you don't have the folder the server will create one automatically.
 
 The reason saving images is that, you can do lot of different fun project on it. Face detection, SURF detection, etc... cheers!
 
