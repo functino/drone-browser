@@ -72,6 +72,10 @@ curl http://localhost:3001/terminal/land/0.3 # for landing
 
 and you will see magic happened :)
 
+## Flow chart
+
+![flow chart](https://raw.github.com/chilijung/drone-browser/master/images/flow.png "chart")
+
 ## TODO
 - use getUserMedia/the webcam to control the drone (like magic xylophone...)
 - add a slider to make the speed/duration of actions configurable
