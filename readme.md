@@ -1,7 +1,7 @@
 # Drone browser
 
 
-##Prequest
+##Prerequisite
 - nodejs
 - npm 
 
