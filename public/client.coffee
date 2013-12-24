@@ -15,7 +15,8 @@ window.showBatteryStatus = (batteryPercentage) ->
     $("#batteryProgress").removeClass("progress-warning").addClass("progress-danger")    
   $("#batteryProgress").attr("data-original-title": "Battery status: " + batteryPercentage + "%")
 
-faye.subscribe "/drone/image", (src) -> $("#cam").attr(src: src)
+faye.subscribe "/drone/image", (src) -> 
+  $("#cam").attr(src: src)
 
 keymap =
   87 : { ev: 'move', action: 'front' }, # W
